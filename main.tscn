@@ -9,16 +9,4 @@
 position = Vector2(-274, 291)
 
 [node name="Plataformas" parent="." unique_id=791740993 instance=ExtResource("2_0xm2m")]
-position = Vector2(-278, 382)
-
-[node name="Plataformas2" parent="." unique_id=18969685 instance=ExtResource("2_0xm2m")]
-position = Vector2(-278, 382)
-
-[node name="Plataformas3" parent="." unique_id=55349304 instance=ExtResource("2_0xm2m")]
-position = Vector2(-51, 259)
-
-[node name="Plataformas4" parent="." unique_id=1452468556 instance=ExtResource("2_0xm2m")]
-position = Vector2(226, 63)
-
-[node name="Plataformas5" parent="." unique_id=116636825 instance=ExtResource("2_0xm2m")]
-position = Vector2(544, 205)
+position = Vector2(-17.00003, 230)

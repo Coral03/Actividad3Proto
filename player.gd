@@ -1,17 +1,17 @@
 extends CharacterBody2D
 
 @export_group("Movimiento Horizontal")
-@export var walk_speed := 220.0       # Velocidad al caminar
+@export var walk_speed := 260.0       # Velocidad al caminar
 @export var run_speed := 400.0        # Velocidad al apretar Shift
-@export var acceleration := 600.0     # Inercia al arrancar
-@export var friction := 800.0         # Fricción al soltar el mando
-@export var turn_around_friction := 1800.0 # El "derrape" al cambiar de dirección
+@export var acceleration := 500.0     # Inercia al arrancar
+@export var friction := 500.0         # Fricción al soltar la tecla
+@export var turn_around_friction := 6000.0 # El "derrape" al cambiar de dirección
 
 @export_group("Mecánicas de Salto")
 @export var jump_velocity := -380.0
 @export var gravity := 1100.0
 @export var max_fall_speed := 600.0
-@export var max_jumps := 2            # Doble salto
+@export var max_jumps := 1            # salto unico
 @export var jump_cut_multiplier := 0.4 # Salto variable (mantener vs presionar)
 
 var jump_count := 0
@@ -38,9 +38,11 @@ func apply_gravity(delta: float) -> void:
 		jump_count = 0
 
 func handle_jump() -> void:
-	# Salto inicial y doble salto
+	# Salto inicial Quieto → salto normal (vertical) Corriendo → salto más largo
 	if Input.is_action_just_pressed("jump") and jump_count < max_jumps:
-		velocity.y = jump_velocity
+		var speed_factor = abs(velocity.x) / run_speed
+		var extra_boost = lerp(0.0, -80.0, speed_factor) 
+		velocity.y = jump_velocity + extra_boost
 		jump_count += 1
 
 	# Salto variable: si soltás el botón, la velocidad de subida se corta
@@ -48,10 +50,8 @@ func handle_jump() -> void:
 		velocity.y *= jump_cut_multiplier
 
 func handle_horizontal_movement(delta: float) -> void:
-	# Captura dirección (-1, 0, 1)
 	var direction := Input.get_axis("move_left", "move_right")
 	
-	# Lógica de Carrera: cambia la velocidad con Shift
 	var target_speed = walk_speed
 	if Input.is_action_pressed("run"):
 		target_speed = run_speed
@@ -59,11 +59,15 @@ func handle_horizontal_movement(delta: float) -> void:
 	if direction != 0:
 		var current_accel = acceleration
 		
-		# Lógica de derrape (Skid): si cambia de dirección bruscamente
+		# Menos control en el aire
+		if not is_on_floor():
+			current_accel *= 0.6
+		
+		# Derrape (skid)
 		if sign(direction) != sign(velocity.x) and velocity.x != 0:
 			current_accel = turn_around_friction
 		
 		velocity.x = move_toward(velocity.x, direction * target_speed, current_accel * delta)
 	else:
-		# Desaceleración suave hasta frenar
+		# Desaceleración
 		velocity.x = move_toward(velocity.x, 0, friction * delta)
