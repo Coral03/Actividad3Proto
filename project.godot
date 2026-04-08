@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Actividad_Movimiento2D"
-run/main_scene="res://player.tscn"
+run/main_scene="uid://6wi7x8tdpy4e"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
