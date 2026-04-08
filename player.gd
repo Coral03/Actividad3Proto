@@ -7,14 +7,16 @@ extends CharacterBody2D
 @export var friction := 500.0         # Fricción al soltar la tecla
 @export var turn_around_friction := 6000.0 # El "derrape" al cambiar de dirección
 
+
 @export_group("Mecánicas de Salto")
 @export var jump_velocity := -380.0
 @export var gravity := 1100.0
 @export var max_fall_speed := 600.0
-@export var max_jumps := 1            # salto unico
+@export var max_jumps := 2            # salto doble
 @export var jump_cut_multiplier := 0.3 # Salto variable (mantener vs presionar)
 
 var jump_count := 0
+var has_tanuki := true
 
 func _ready():
 	# Ubica al personaje y resetea velocidad al inicio
@@ -32,19 +34,37 @@ func _physics_process(delta: float) -> void:
 
 func apply_gravity(delta: float) -> void:
 	if not is_on_floor():
-		# Caída más fuerte (clave)
-		if velocity.y > 0:
-			velocity.y += gravity * delta * 1.5
+		# planeo del tanuki
+		if has_tanuki and Input.is_action_pressed("jump") and velocity.y > 0:
+			velocity.y += gravity * delta * 0.3  # caída lenta
+
 		else:
-			velocity.y += gravity * delta
+			# gravedad normal (subida vs bajada)
+			if velocity.y < 0:
+				velocity.y += gravity * delta * 0.8  # subida
+			else:
+				velocity.y += gravity * delta * 1.5  # caída
+
+		# límite de caída
+		velocity.y = min(velocity.y, max_fall_speed)
+
 	else:
+		jump_count = 0
 		velocity.y = 0
 
 func handle_jump() -> void:
-	# Salto inicial Quieto → salto normal (vertical) Corriendo → salto más largo
-	if Input.is_action_just_pressed("jump") and is_on_floor(): 
+	if Input.is_action_just_pressed("jump") and jump_count < max_jumps:
 		velocity.y = jump_velocity
+
+		# bonus por velocidad 
+		var speed_factor = abs(velocity.x) / run_speed
+		var extra_boost = lerp(0.0, -80.0, speed_factor)
+		velocity.y += extra_boost
+
 		jump_count += 1
+
+	if Input.is_action_just_released("jump") and velocity.y < 0:
+		velocity.y *= jump_cut_multiplier
 
 	# Salto variable: si soltás el botón, la velocidad de subida se corta
 	if Input.is_action_just_released("jump") and velocity.y < 0:
