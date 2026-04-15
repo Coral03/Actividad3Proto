@@ -13,13 +13,13 @@ position = Vector2(-278, 419)
 position = Vector2(4, -7)
 
 [node name="Ladrillo" parent="Plataformas" unique_id=1814487879 instance=ExtResource("3_jumxm")]
-position = Vector2(165.28886, 311)
+position = Vector2(258.3257, 375)
 
 [node name="Ladrillo2" parent="Plataformas" unique_id=1491927918 instance=ExtResource("3_jumxm")]
-position = Vector2(344.43427, 205)
+position = Vector2(478.05103, 253)
 
 [node name="Ladrillo3" parent="Plataformas" unique_id=1878584385 instance=ExtResource("3_jumxm")]
-position = Vector2(652.2477, 252)
+position = Vector2(759.1411, 323)
 
 [node name="Ladrillo4" parent="Plataformas" unique_id=1221759293 instance=ExtResource("3_jumxm")]
-position = Vector2(851.1882, 108)
+position = Vector2(950.1636, 121)
