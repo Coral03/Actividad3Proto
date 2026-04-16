@@ -9,7 +9,7 @@ extends CharacterBody2D
 
 
 @export_group("Mecánicas de Salto")
-@export var jump_velocity := -380.0
+@export var jump_velocity := -320.0
 @export var gravity := 1100.0
 @export var max_fall_speed := 600.0
 @export var max_jumps := 2            # salto doble

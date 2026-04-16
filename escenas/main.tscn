@@ -17,22 +17,25 @@ size = Vector2(1218, 22)
 position = Vector2(4, -7)
 
 [node name="Ladrillo" parent="Plataformas" unique_id=1814487879 instance=ExtResource("3_jumxm")]
-position = Vector2(262.28473, 446)
-
-[node name="Ladrillo5" parent="Plataformas" unique_id=995001013 instance=ExtResource("3_jumxm")]
-position = Vector2(262.28473, 446)
+position = Vector2(177.16591, 453)
 
 [node name="Ladrillo2" parent="Plataformas" unique_id=1491927918 instance=ExtResource("3_jumxm")]
-position = Vector2(466.17398, 303)
+position = Vector2(351.36258, 374)
 
 [node name="Ladrillo3" parent="Plataformas" unique_id=1878584385 instance=ExtResource("3_jumxm")]
-position = Vector2(699.75586, 355)
+position = Vector2(506.75385, 464)
 
 [node name="Ladrillo4" parent="Plataformas" unique_id=1221759293 instance=ExtResource("3_jumxm")]
-position = Vector2(923.44025, 229)
+position = Vector2(657.1965, 374)
+
+[node name="Ladrillo5" parent="Plataformas" unique_id=995001013 instance=ExtResource("3_jumxm")]
+position = Vector2(874.9423, 361)
+
+[node name="Ladrillo6" parent="Plataformas" unique_id=2047268019 instance=ExtResource("3_jumxm")]
+position = Vector2(1002.6205, 270)
 
 [node name="Enemigo" parent="." unique_id=1515977938 instance=ExtResource("4_26pgj")]
-position = Vector2(431, 498)
+position = Vector2(438, 524)
 
 [node name="Pared_izquierda" type="StaticBody2D" parent="." unique_id=2033078088]
 
@@ -51,4 +54,4 @@ position = Vector2(579, -12)
 shape = SubResource("RectangleShape2D_dkga6")
 
 [node name="Player" parent="." unique_id=1800270601 instance=ExtResource("4_dkga6")]
-position = Vector2(84, 513)
+position = Vector2(84, 520)
